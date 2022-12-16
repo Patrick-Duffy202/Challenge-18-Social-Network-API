@@ -38,7 +38,7 @@ const userController = {
           res.status(404).json({ message: 'No user found with this id!' });
           return;
         }
-        res.json(dbThoughtData);
+        res.json(dbUserData);
       })
       .catch(err => {
         console.log(err);
@@ -80,7 +80,7 @@ const userController = {
     },
     // add friend to user
     addFriend({ params }, res) {
-        User.findOneAndUpdate({ _id: params.userId },{ $push: { friends: { friends: params.friendId } } },{ new: true, runValidators: true })
+        User.findOneAndUpdate({ _id: params.userId },{ $push: { friends: { _id: params.friendId } } },{ new: true, runValidators: true })
         .then(dbUserData => {
          if (!dbUserData) {
             res.status(404).json({ message: 'No user found with this id!' });
